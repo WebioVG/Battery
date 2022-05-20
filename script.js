@@ -7,8 +7,7 @@ let notes = document.getElementsByClassName('select');
 
 // Main
 for (let note of notes) {
-    console.log(note);
-    note.classList.remove('selected');
+    note.classList.remove('selectApply');  
 }
 
 window.addEventListener('keydown', function(event) {
@@ -19,9 +18,16 @@ window.addEventListener('keydown', function(event) {
 
         if (event.code == note) {
             audios[counter].play();
-            notes[counter].classList.add('selected');
-        } else {
-            notes[counter].classList.remove('selected');
+            notes[counter].classList.add('selectApply');
+            notes[counter].classList.remove('bg-slate-400');
+
+            notes[counter].addEventListener('transitionend', function(event) {
+                console.log(event);
+                this.classList.add('bg-slate-400');
+                this.classList.remove('selectApply');
+
+            })
         }
     }
+
 })

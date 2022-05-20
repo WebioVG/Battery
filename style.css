@@ -1,4 +1,4 @@
 .selectApply {
     background-color: antiquewhite;
-    transition-duration: 500ms;
+    transition: 500ms ease-out;
 }

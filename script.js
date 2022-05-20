@@ -7,9 +7,34 @@ let notes = document.getElementsByClassName('select');
 
 // Main
 for (let note of notes) {
-    note.classList.remove('selectApply');  
+    
+    // Apply initial style
+    note.classList.remove('selectApply');
+
+    // Check click
+    note.addEventListener('click', function() {
+        let counter = -1;
+
+        for (let noteKey of notesKey) {
+            counter++;
+
+            if (note.dataset.key == noteKey) {
+                audios[counter].play();
+
+                notes[counter].classList.add('selectApply');
+                notes[counter].classList.remove('bg-slate-400');
+
+                notes[counter].addEventListener('transitionend', function(event) {
+                    this.classList.add('bg-slate-400');
+                    this.classList.remove('selectApply');
+                })
+            }
+
+        }
+    })
 }
 
+// Check keydown
 window.addEventListener('keydown', function(event) {
     let counter = -1;
 
@@ -18,16 +43,14 @@ window.addEventListener('keydown', function(event) {
 
         if (event.code == note) {
             audios[counter].play();
+
             notes[counter].classList.add('selectApply');
             notes[counter].classList.remove('bg-slate-400');
 
             notes[counter].addEventListener('transitionend', function(event) {
-                console.log(event);
                 this.classList.add('bg-slate-400');
                 this.classList.remove('selectApply');
-
             })
         }
     }
-
 })
